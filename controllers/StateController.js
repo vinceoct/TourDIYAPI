@@ -9,9 +9,9 @@ const GetStates = async (req, res) => {
   }
 };
 
-const GetStateById = async (req, res) => {
+const GetStateByAbbrev = async (req, res) => {
   try {
-    const state = await State.findByPk(req.params.state_id);
+    const state = await State.findOne({where : {abbrev : req.params.abbrev}});
     res.send(state);
   } catch (error) {
     throw error;
@@ -20,5 +20,5 @@ const GetStateById = async (req, res) => {
 
 module.exports = {
   GetStates,
-  GetStateById,
+  GetStateByAbbrev,
 };
