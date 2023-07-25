@@ -2,13 +2,13 @@
 const { Model } = require('sequelize');
 const bcrypt = require('bcrypt')
 module.exports = (sequelize, DataTypes) => {
-  class Band extends Model {
+  class Artist extends Model {
  
     static associate(models) {
 
     }
   }
-  Band.init({
+  Artist.init({
     name: DataTypes.STRING,
     genre: DataTypes.STRING,
     city: DataTypes.STRING,
@@ -32,14 +32,14 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'Band',
-    tableName: 'bands'
+    modelName: 'Artist',
+    tableName: 'artists'
   });
 
-  Band.beforeCreate(async (band) => {
+  Artist.beforeCreate(async (band) => {
     const saltRounds = 10;
     band.password = await bcrypt.hash(band.password, saltRounds)
   })
 
-  return Band;
+  return Artist;
 };

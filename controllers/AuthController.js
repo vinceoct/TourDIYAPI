@@ -40,6 +40,6 @@ const login = async(req, res) => {
 }
 
 module.exports = {
-    register,
+    signup,
     login
 }

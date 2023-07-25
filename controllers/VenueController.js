@@ -18,10 +18,12 @@ const GetVenueById = async (req, res) => {
   }
 };
 
-const GetVenuesByCity = async (req, res) => {
+const GetVenuesByLocation = async (req, res) => {
   try {
     const venues = await Venue.findAll({
-      where: { cityId: req.params.city_id },
+      where: { 
+      city: req.params.city,
+      state: req.params.state },
     });
     res.send(venues);
   } catch (error) {
@@ -32,5 +34,5 @@ const GetVenuesByCity = async (req, res) => {
 module.exports = {
   GetVenues,
   GetVenueById,
-  GetVenuesByCity
+  GetVenuesByLocation
 };
