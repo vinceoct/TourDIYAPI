@@ -18,7 +18,19 @@ const GetArtistById = async (req, res) => {
     }    
 }
 
+const GetArtistsByCity = async (req, res) => {
+  try {
+    const artists = await Artist.findAll({
+      where: { cityId: req.params.city_id },
+    });
+    res.send(artists);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
     GetArtists,
+    GetArtistsByCity,
     GetArtistById
 }

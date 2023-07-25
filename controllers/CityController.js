@@ -18,7 +18,17 @@ const GetCityById = async (req, res) => {
   }
 };
 
+const GetCitiesByState = async (req, res) => {
+  try {
+    const cities = await City.findAll({where: {stateId : req.params.state_id} });
+    res.send(cities);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   GetCities,
   GetCityById,
+  GetCitiesByState
 };
