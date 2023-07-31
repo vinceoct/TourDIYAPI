@@ -9,19 +9,22 @@ const GetArtists = async (req, res) => {
   }
 };
 
-const GetArtistById = async (req, res) => {
+const GetArtistByEmail = async (req, res) => {
     try {
-        const artist = await Artist.findByPk(req.params.artist_id)
+        const artist = await Artist.findOne({ where : { email: req.params.email } })
         res.send(artist)
     } catch (error) {
         throw error
     }    
 }
 
-const GetArtistsByCity = async (req, res) => {
+const GetArtistsByLocation = async (req, res) => {
   try {
     const artists = await Artist.findAll({
-      where: { cityId: req.params.city_id },
+      where: {
+        city: req.params.city,
+        state: req.params.state,
+      },
     });
     res.send(artists);
   } catch (error) {
@@ -29,8 +32,41 @@ const GetArtistsByCity = async (req, res) => {
   }
 };
 
+const DeleteArtistByEmail = async (req, res) => {
+  try {
+    const artist = await Artist.findOne({ where: { email: req.params.email } });
+
+    if (!artist) {
+      return res.status(404).send({ message: "Artist not found" });
+    }
+
+    await artist.destroy();
+    res.send({ message: "Artist deleted successfully" });
+  } catch (error) {
+    throw error;
+  }
+};
+
+const UpdateArtistByEmail = async (req, res) => {
+  try {
+    const artist = await Artist.findOne({ where: { email: req.params.email } });
+
+    if (!artist) {
+      return res.status(404).send({ message: "Artist not found" });
+    }
+
+    await artist.update(req.body);
+    res.send({ message: "Artist updated successfully" });
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 module.exports = {
     GetArtists,
-    GetArtistsByCity,
-    GetArtistById
+    GetArtistsByLocation,
+    GetArtistByEmail,
+    UpdateArtistByEmail,
+    DeleteArtistByEmail
 }
