@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
   Venue.init({
       name: DataTypes.STRING,
       city: DataTypes.STRING,
-      state: DataTypes.STRING
+      state: DataTypes.STRING,
+      website: DataTypes.STRING
     },
     {
       sequelize,
